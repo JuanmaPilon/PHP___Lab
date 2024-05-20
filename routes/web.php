@@ -23,3 +23,6 @@ Route::get('/comerciosyservicios', function () {
     return view('comerciosyservicios');
 });
 
+Route::get('/users', function() {
+    return view('users');
+});
