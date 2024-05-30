@@ -9,8 +9,8 @@ use App\Http\Controllers\AdminController;
  
 Route::get('admin',[AdminController::class, 'index']);
 
-Route::get('/comerciosyservicios', function() {
-    return 'Bienvenido a comercios y servicios';
+Route::get('/comerciosyservicios', function () {
+    return view('index');
 });
 
 Route::get('/usuarios', [UsuarioController::class, 'list']);

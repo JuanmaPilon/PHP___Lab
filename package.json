@@ -1,13 +1,26 @@
 {
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build"
-    },
-    "devDependencies": {
-        "axios": "^1.6.4",
-        "laravel-vite-plugin": "^1.0",
-        "vite": "^5.0"
-    }
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "axios": "^1.6.4",
+    "browser-sync": "^2.29.3",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "laravel-mix": "^6.0.49",
+    "laravel-vite-plugin": "^1.0",
+    "vite": "^5.0"
+  },
+  "name": "php___lab",
+  "description": "<img align=\"right\" width=\"350\" src=\"https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTB0NWkwNm5tMWdqcmRwZXZwbHYzb3UzY3RhNmt4aHo1em9zbDdncyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zkRQ24mPZ1HvHj9pZ6/giphy.gif\">",
+  "version": "1.0.0",
+  "main": "vite.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

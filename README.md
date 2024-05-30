@@ -15,6 +15,7 @@ Para el Backend:
 - Laravel
 - Composer
 - SQLite
+- NodeJS
 
 Para el Frontend:
 
@@ -22,12 +23,14 @@ Para el Frontend:
 - CSS
 - Boostrap
 - Javascript
+- Blade
 
 ### Para deploy del mismo:
 
-- Tener instalado PHP y composer previamente
+- Tener instalado PHP, Composer y NodeJS previamente
 - Descargar el codigo fuente
-- Correr el comando 'composer install' para todas las configs de Laravel
+- Correr el comando 'composer install' para todas las configs del Backend
+- Correr el comando 'npm install laravel-mix --save-dev' para todas las configs del Frontend
 - Copiar archivo .env a la carpeta root del proyecto
 - Copiar el archivo de la base SQLite dentro del folder root del proyecto -> PHP___Lab/database
 - Finalmente correr el comando 'php artisan serve' para deployar la aplicacion
