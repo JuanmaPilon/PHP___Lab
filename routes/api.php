@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\UsuarioController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
+ 
 Route::get('admin',[AdminController::class, 'index']);
 
 Route::get('/comerciosyservicios', function() {
