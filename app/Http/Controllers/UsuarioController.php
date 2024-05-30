@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Validator;
 class UsuarioController extends Controller
 {
     //
+    public function showUsers()
+    {
+        $usuarios = Usuario::all();
+        return view('listaUsuarios', compact('usuarios'));
+    }
     public function list()
     {
         $usuarios = Usuario::all();

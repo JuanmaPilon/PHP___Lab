@@ -6,15 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
- 
-Route::get('admin',[AdminController::class, 'index']);
+Route::get('listaUsuarios', [UsuarioController::class, 'showUsers']);
 
-Route::get('/comerciosyservicios', function () {
-    return view('index');
-});
+    Route::get('usuarios', [UsuarioController::class, 'list']);
+    Route::post('api/usuarios', [UsuarioController::class, 'store']);
+    Route::put('api/usuarios/{id}', [UsuarioController::class, 'update']);
+    Route::get('api/usuarios/{id}', [UsuarioController::class, 'show']);
+    Route::delete('api/usuarios/{id}', [UsuarioController::class, 'destroy']);
 
-Route::get('/usuarios', [UsuarioController::class, 'list']);
-Route::post('/usuarios', [UsuarioController::class, 'store']);
-Route::put('/usuarios/{id}', [UsuarioController::class, 'update']);
-Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
-Route::delete('usuarios/{id}', [UsuarioController::class, 'destroy']);
+

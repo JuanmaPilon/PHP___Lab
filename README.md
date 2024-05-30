@@ -33,4 +33,4 @@ Para el Frontend:
 - Correr el comando 'npm install laravel-mix --save-dev' para todas las configs del Frontend
 - Copiar archivo .env a la carpeta root del proyecto
 - Copiar el archivo de la base SQLite dentro del folder root del proyecto -> PHP___Lab/database
-- Finalmente correr el comando 'php artisan serve' para deployar la aplicacion
+- Finalmente correr los comandos 'php artisan serve' y luego 'npm run dev' para deployar la aplicacion
