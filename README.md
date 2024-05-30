@@ -14,6 +14,7 @@ Para el Backend:
 - PHP
 - Laravel
 - Composer
+- SQLite
 
 Para el Frontend:
 
@@ -24,6 +25,9 @@ Para el Frontend:
 
 ### Para deploy del mismo:
 
-- Se debe descargar el codigo fuente
-- Se tiene que tener instalado PHP y composer
-- Correr el comando -> php artisan serve para deploy
+- Tener instalado PHP y composer previamente
+- Descargar el codigo fuente
+- Correr el comando 'composer install' para todas las configs de Laravel
+- Copiar archivo .env a la carpeta root del proyecto
+- Copiar el archivo de la base SQLite dentro del folder root del proyecto -> PHP___Lab/database
+- Finalmente correr el comando 'php artisan serve' para deployar la aplicacion
