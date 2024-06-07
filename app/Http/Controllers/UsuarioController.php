@@ -31,7 +31,7 @@ class UsuarioController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nombreUsuario' => 'required',
-            'contrasenia' => 'required',
+            'password' => 'required',
             'telefono' => 'required',
             'email' => 'required|email'
         ]);
@@ -46,7 +46,7 @@ class UsuarioController extends Controller
         }
         $usuario = Usuario::create([
             'nombreUsuario' => $request->nombreUsuario,
-            'contrasenia' => $request->contrasenia,
+            'password' => $request->password,
             'telefono' => $request->telefono,
             'email' => $request->email
         ]);
@@ -107,7 +107,7 @@ class UsuarioController extends Controller
             }
             $validator = Validator::make($request->all(), [
                 'nombreUsuario' => 'required',
-                'contrasenia' => 'required',
+                'password' => 'required',
                 'telefono' => 'required',
                 'email' => 'required|email'
             ]);
@@ -121,7 +121,7 @@ class UsuarioController extends Controller
             }
             
                 $usuario->nombreUsuario = $request->nombreUsuario;
-                $usuario->contrasenia = $request->contrasenia;
+                $usuario->password = $request->password;
                 $usuario->telefono = $request->telefono;
                 $usuario->email = $request->email;
             
