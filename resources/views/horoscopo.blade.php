@@ -38,17 +38,17 @@
                 <label for="sign" class="form-label">Signo del Zodiaco</label>
                 <select class="form-select" id="sign" name="sign" required>
                     <option value="Aries">Aries</option>
-                    <option value="Tauro">Tauro</option>
-                    <option value="Geminis">Géminis</option>
+                    <option value="Taurus">Tauro</option>
+                    <option value="Gemini">Géminis</option>
                     <option value="Cancer">Cáncer</option>
                     <option value="Leo">Leo</option>
                     <option value="Virgo">Virgo</option>
                     <option value="Libra">Libra</option>
-                    <option value="Escorpio">Escorpio</option>
-                    <option value="Sagitario">Sagitario</option>
-                    <option value="Capricornio">Capricornio</option>
-                    <option value="Acuario">Acuario</option>
-                    <option value="Piscis">Piscis</option>
+                    <option value="Scorpio">Escorpio</option>
+                    <option value="Sagittarius">Sagitario</option>
+                    <option value="Capricorn">Capricornio</option>
+                    <option value="Aquarius">Acuario</option>
+                    <option value="Pisces">Piscis</option>
                 </select>
             </div>
             <div class="mb-3">
