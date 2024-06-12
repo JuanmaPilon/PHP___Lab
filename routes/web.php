@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoroscopoController;
+use App\Http\Controllers\RecetasController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UsuarioController;
@@ -18,6 +19,7 @@ Route::get('/recetas', function(){
 
 //Horoscopo
 Route::get('/horoscopo',[HoroscopoController::class,'getapidata']);
+Route::get('/recetas', [RecetasController::class, 'getApiData']);
 
 //Auth Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');

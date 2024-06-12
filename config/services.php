@@ -13,6 +13,7 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'api_key' => env('API_KEY'),
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),

@@ -32,5 +32,46 @@
         </div>
     </nav>
 
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Recetas</h1>
+
+        <form action="{{ url('/recetas') }}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="query" placeholder="Buscar recetas..." value="{{ request('query') }}">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        @if (isset($error))
+            <div class="alert alert-danger" role="alert">
+                {{ $error }}
+            </div>
+        @endif
+
+        @if (isset($recipes) && count($recipes) > 0)
+            <div class="row">
+                @foreach ($recipes as $recipe)
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">{{ $recipe['title'] }}</h2>
+                                <p class="card-text"><strong>Ingredientes:</strong> {{ $recipe['ingredients'] }}</p>
+                                <p class="card-text"><strong>Porciones:</strong> {{ $recipe['servings'] }}</p>
+                                <p class="card-text"><strong>Instrucciones:</strong></p>
+                                <p class="card-text">{!! nl2br(e($recipe['instructions'])) !!}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="alert alert-warning" role="alert">
+                No se encontraron recetas.
+            </div>
+        @endif
+    </div>
+
 </body>
 </html>
