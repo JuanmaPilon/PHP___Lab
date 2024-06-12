@@ -17,7 +17,7 @@ class HoroscopoController extends Controller
         if ($response->successful()) {
             $data = $response->json();
 
-            return view('horoscopo', ['data' => $data['data']]);
+            return view('horoscopo', ['data' => $data['data'], 'sign' => $sign, 'day' => $day]);
         } else {
             // Manejo de errores
             return view('horoscopo', ['error' => 'Error al obtener datos de la API']);
