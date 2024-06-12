@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Comercios y Servicios</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,9 +17,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/login') }}">Login</a>
-                    </li>
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                {{ Auth::user()->nombreUsuario }} <!-- deberia msotrar el nomrbe del user logeado  -->
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('logout') }}"
+                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                        </li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                        </li>
+                    @endauth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/horoscopo') }}">Horóscopo</a>
                     </li>
@@ -69,7 +86,7 @@
             @if(isset($data))
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Horóscopo para {{ $data['date'] }}</h5>
+                    <h5 class="card-title">Horóscopo para {{ $sign }} el {{ $data['date'] }}</h5>
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{ $data['horoscope_data'] }}</p>

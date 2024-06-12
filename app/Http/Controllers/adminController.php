@@ -3,13 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    public function index() {
-        return 'Entrando a comercios y servicios';
+    public function index()
+    {
+        $usuarios = Usuario::all();
+        return response()->json($usuarios);
     }
 
-    //un endpoint loco aca en contrller admin nomas
+    public function create(Request $request)
+    {
+        $request->validate([
+            'nombreUsuario' => 'required|string|max:255',
+            'telefono' => 'required|numeric',
+            'email' => 'required|string|email|max:255|unique:usuario',
+            'password' => 'required|string|min:3|confirmed',
+        ]);
+
+        $usuario = Usuario::create([
+            'nombreUsuario' => $request->nombreUsuario,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return response()->json(['message' => 'Usuario creado correctamente', 'usuario' => $usuario]);
+    }
 }

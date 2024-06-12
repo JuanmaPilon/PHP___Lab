@@ -17,4 +17,8 @@ Route::delete('usuarios/{id}', [UsuarioController::class, 'destroy']);
 Route::get('horoscopo', [HoroscopoController::class, 'getApiData']);
 Route::get('recetas', [RecetasController::class, 'getApiData']);
 
-
+// las del admin controller
+Route::middleware(['auth:api', 'can:manage-users'])->group(function () {
+    Route::get('admin/users', [AdminController::class, 'index']);
+    Route::post('admin/users', [AdminController::class, 'create']);
+});
