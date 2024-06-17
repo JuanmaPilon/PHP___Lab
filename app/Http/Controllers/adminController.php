@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,7 @@ class AdminController extends Controller
         return response()->json($usuarios);
     }
 
-    public function create(Request $request)
+    public function createUsuario(Request $request)
     {
         $request->validate([
             'nombreUsuario' => 'required|string|max:255',
@@ -55,5 +56,31 @@ class AdminController extends Controller
         ]);
 
         return response()->json(['message' => 'Usuario administrador creado correctamente', 'usuario' => $usuario], 201);
+    }
+
+    public function showCreateUserForm()
+    {
+        return view('register');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'nombreUsuario' => 'required|string|max:255',
+            'telefono' => 'required|numeric',
+            'email' => 'required|string|email|max:255|unique:usuario',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Usuario::create([
+            'nombreUsuario' => $request->nombreUsuario,
+            'email' => $request->email,
+            'telefono' => $request->telefono,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($user);
+
+        return redirect('/');
     }
 }

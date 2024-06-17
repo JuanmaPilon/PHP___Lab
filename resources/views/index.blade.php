@@ -20,9 +20,14 @@
                     @auth
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                {{ Auth::user()->nombreUsuario }} <!-- deberia msotrar el nomrbe del user logeado  -->
+                                {{ Auth::user()->nombreUsuario }} <!-- debería mostrar el nombre del usuario logeado -->
                             </a>
                         </li>
+                        @if(Auth::user()->admin)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/admin/create') }}">Crear Usuario</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

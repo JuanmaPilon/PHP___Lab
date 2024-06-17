@@ -6,6 +6,7 @@ use App\Http\Controllers\RecetasController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\AdminController;
 
 //LandingPage
 Route::get('/', function () {
@@ -45,3 +46,8 @@ Route::post('/email/resend', function (Request $request) {
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
+    Route::post('/admin/create', [AdminController::class, 'createUsuario']);
+});
