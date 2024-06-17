@@ -38,4 +38,13 @@ class AnuncioController extends Controller
     {
         return view('anuncio');
     }
+    public function destroy($id)
+    {
+        $anuncio = Anuncio::findOrFail($id);
+        if (file_exists(public_path('images/' . $anuncio->imagen))) {
+            unlink(public_path('images/' . $anuncio->imagen));
+        }
+        $anuncio->delete();
+        return redirect()->route('anuncio.index')->with('success', 'Anuncio eliminado exitosamente');
+    }
 }

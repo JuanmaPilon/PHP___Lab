@@ -55,6 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/create', [AdminController::class, 'createUsuario']);
     Route::get('/admin/anuncio', [AnuncioController::class, 'showCreateAnuncioForm'])->name('anuncio.create');
     Route::post('/admin/anuncio', [AnuncioController::class, 'store']);
+    Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('anuncio.index');
+    Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']);
 });
 
 

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comercios y Servicios</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
@@ -20,15 +21,13 @@
                     @auth
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                {{ Auth::user()->nombreUsuario }} <!-- debería mostrar el nombre del usuario logeado -->
+                                {{ Auth::user()->nombreUsuario }}
                             </a>
                         </li>
                         @if(Auth::user()->admin)
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/admin/create') }}">Crear Usuario</a>
                             </li>
-                        @endif
-                        @if(Auth::user()->admin)
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/admin/anuncio') }}">Crear Anuncio</a>
                             </li>
@@ -67,13 +66,41 @@
                         <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top" alt="Imagen de Anuncio">
                         <div class="card-body">
                             <h5 class="card-title">{{ $anuncio->tipo }}</h5>
-                            
+                            @if(Auth::user()->admin)
+                                <form action="{{ url('/admin/anuncio/' . $anuncio->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm float-end">X</button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-
+    
 </body>
+<script>
+        function deleteAnuncio(id) {
+            if(confirm('¿Estás seguro de que quieres eliminar este anuncio?')) {
+                $.ajax({
+                    url: '/admin/anuncio/' + id,
+                    type: 'POST',
+                    data: {
+                        '_method': 'DELETE',
+                        '_token': '{{ csrf_token() }}'
+                    },
+                    success: function(result) {
+                        $('#anuncio-' + id).remove();
+                        alert(result.message);
+                    },
+                    error: function(xhr) {
+                        alert('Error al eliminar el anuncio.');
+                    }
+                });
+            }
+        }
+    </script>
+
 </html>
