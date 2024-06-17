@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comercios y Servicios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-img-top {
+            height: 200px; /* Altura fija para las imágenes */
+            object-fit: cover; /* Escalar y recortar la imagen para que llene el contenedor */
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
@@ -62,8 +68,8 @@
         <div class="row mt-3">
             @foreach($anuncios as $anuncio)
                 <div class="col-md-3 mb-3">
-                    <div class="card" id="anuncio-{{ $anuncio->id }}">
-                        <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top" alt="Imagen de Anuncio">
+                    <div class="card h-100" id="anuncio-{{ $anuncio->id }}">
+                        <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top img-fluid" alt="Imagen de Anuncio">
                         <div class="card-body">
                             <h5 class="card-title">{{ $anuncio->tipo }}</h5>
                             @auth
