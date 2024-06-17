@@ -14,10 +14,10 @@ class ClienteController extends Controller
     {
         // Validar la solicitud
         $request->validate([
-            'nombreUsuario' => 'required|string|unique:usuario,nombreUsuario',
-            'password' => 'required|string|min:6',
+            'nombreUsuario' => 'required|string',
+            'password' => 'required|string',
             'telefono' => 'nullable|string',
-            'email' => 'required|string|email|unique:usuario,email',
+            'email' => 'required|string|email',
             'nombreNegocio' => 'required|string',
             'descripcion' => 'nullable|string',
         ]);
@@ -37,7 +37,7 @@ class ClienteController extends Controller
             'descripcion' => $request->descripcion,
         ]);
 
-        return response()->json(['message' => 'Cliente creado exitosamente', 'cliente' => $cliente], 201);
+        return redirect()->back()->with('success', 'Cliente creado exitosamente');
     }
 
     // Baja de cliente

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HoroscopoController;
 use App\Http\Controllers\RecetasController;
@@ -52,7 +53,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
-    Route::post('/admin/create', [AdminController::class, 'createUsuario']);
+    Route::post('/admin/create', [ClienteController::class, 'store']);
     Route::get('/admin/anuncio', [AnuncioController::class, 'showCreateAnuncioForm'])->name('anuncio.create');
     Route::post('/admin/anuncio', [AnuncioController::class, 'store']);
     Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('anuncio.index');

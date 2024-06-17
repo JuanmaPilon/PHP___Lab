@@ -16,6 +16,14 @@
                 <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
             </div>
             <div class="mb-3">
+                <label for="nombreNegocio" class="form-label">Nombre del Negocio</label>
+                <input type="text" class="form-control" id="nombreNegocio" name="nombreNegocio" required>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+            </div>
+            <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
