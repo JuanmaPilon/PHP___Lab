@@ -53,6 +53,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
     Route::post('/admin/create', [AdminController::class, 'createUsuario']);
+    Route::get('/admin/anuncio', [AnuncioController::class, 'showCreateAnuncioForm'])->name('anuncio.create');
+    Route::post('/admin/anuncio', [AnuncioController::class, 'store']);
 });
 
 

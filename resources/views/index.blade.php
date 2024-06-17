@@ -28,6 +28,11 @@
                                 <a class="nav-link" href="{{ url('/admin/create') }}">Crear Usuario</a>
                             </li>
                         @endif
+                        @if(Auth::user()->admin)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/admin/anuncio') }}">Crear Anuncio</a>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
