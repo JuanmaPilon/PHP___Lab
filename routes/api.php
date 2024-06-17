@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HoroscopoController;
 use App\Http\Controllers\RecetasController;
 use App\Http\Controllers\AnuncioController;
+use App\Http\Controllers\AuthController;
 
 Route::get('listaUsuarios', [UsuarioController::class, 'showUsers']);
 Route::get('usuarios', [UsuarioController::class, 'list']);
@@ -23,5 +24,9 @@ Route::get('/anuncios', [AnuncioController::class, 'index']);
 // las del admin controller
 Route::middleware(['auth:api', 'can:manage-users'])->group(function () {
     Route::get('admin/users', [AdminController::class, 'index']);
-    Route::post('admin/users', [AdminController::class, 'create']);
+    Route::post('admin/create', [AdminController::class, 'createAdmin']);
 });
+
+// Rutas de auth
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
