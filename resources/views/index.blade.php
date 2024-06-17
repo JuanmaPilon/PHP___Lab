@@ -55,7 +55,20 @@
 
     <div class="container mt-5">
         <h1 class="text-center">Comercios y Servicios</h1>
-        <p class="text-center">Información sobre comercios y servicios.</p>
+        <div class="row mt-3">
+            @foreach($anuncios as $anuncio)
+                <div class="col-md-3 mb-3">
+                    <div class="card">
+                        <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top" alt="Imagen de Anuncio">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $anuncio->tipo }}</h5>
+                            
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
+
 </body>
 </html>

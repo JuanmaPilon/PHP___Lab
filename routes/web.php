@@ -7,11 +7,14 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnuncioController;
 
 //LandingPage
 Route::get('/', function () {
     return view('index');
 });
+//anuncios
+Route::get('/',[AnuncioController::class,'index']);
 
 //Recetas
 Route::get('/recetas', function(){
@@ -51,3 +54,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
     Route::post('/admin/create', [AdminController::class, 'createUsuario']);
 });
+
+
