@@ -62,24 +62,25 @@
         <div class="row mt-3">
             @foreach($anuncios as $anuncio)
                 <div class="col-md-3 mb-3">
-                    <div class="card">
+                    <div class="card" id="anuncio-{{ $anuncio->id }}">
                         <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top" alt="Imagen de Anuncio">
                         <div class="card-body">
                             <h5 class="card-title">{{ $anuncio->tipo }}</h5>
-                            @if(Auth::user()->admin)
-                                <form action="{{ url('/admin/anuncio/' . $anuncio->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm float-end">X</button>
-                                </form>
-                            @endif
+                            @auth
+                                @if(Auth::user()->admin)
+                                    <form action="{{ url('/admin/anuncio/' . $anuncio->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este anuncio?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm float-end">X</button>
+                                    </form>
+                                @endif
+                            @endauth
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-    
 </body>
 <script>
         function deleteAnuncio(id) {
