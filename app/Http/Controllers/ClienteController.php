@@ -65,5 +65,10 @@ class ClienteController extends Controller
             return response()->json(['message' => 'Error al obtener datos del cliente.'], 500);
         }
     }
+    public function getClientes()
+    {
+        $clientes = Cliente::with('usuario')->get();
+        return response()->json($clientes);
+    }
 }
 
