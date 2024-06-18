@@ -16,6 +16,7 @@ Para el Backend:
 - Composer
 - SQLite
 - NodeJS
+- Mailtrap
 
 Para el Frontend:
 
@@ -24,6 +25,7 @@ Para el Frontend:
 - Boostrap
 - Javascript
 - Blade
+- Ajax
 
 ### Para deploy del mismo:
 
