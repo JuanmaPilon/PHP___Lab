@@ -50,7 +50,7 @@ Route::post('/email/resend', function (Request $request) {
 // Register
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-
+Route::get('/cliente/{id}', [ClienteController::class, 'show']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
     Route::post('/admin/create', [ClienteController::class, 'store']);
@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/anuncio', [AnuncioController::class, 'store']);
     Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('anuncio.index');
     Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']);
+   
 });
+
 
 

@@ -51,4 +51,19 @@ class ClienteController extends Controller
 
         return response()->json(['message' => 'Cliente eliminado exitosamente'], 200);
     }
+
+    // Obtener datos de un cliente por ID de cliente
+    public function show($id)
+    {
+        try {
+            // Buscar el cliente asociado al anuncio
+            $cliente = Cliente::with('usuario')->findOrFail($id);
+            return response()->json($cliente);
+        } catch (\Exception $e) {
+            // Registro de depuración
+            \Log::error('Error al obtener datos del cliente: ' . $e->getMessage());
+            return response()->json(['message' => 'Error al obtener datos del cliente.'], 500);
+        }
+    }
 }
+
