@@ -11,7 +11,6 @@ use App\Http\Controllers\AnuncioController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 
-Route::get('listaUsuarios', [UsuarioController::class, 'showUsers']);
 Route::get('index', [AnuncioController::class, 'index']);
 
 Route::get('usuarios', [UsuarioController::class, 'list']);

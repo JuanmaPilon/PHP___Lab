@@ -62,7 +62,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/anuncio', [AnuncioController::class, 'showCreateAnuncioForm'])->name('anuncio.create');
     Route::post('/admin/anuncio', [AnuncioController::class, 'store']);
     Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('anuncio.index');
-    Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']);  
+    Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']); 
+    Route::get('/admin/listaUsuarios', [ClienteController::class, 'showUsers'])->name('clientes.lista');
+    Route::delete('/admin/cliente/{id}', [ClienteController::class, 'destroy']); 
+    Route::patch('/admin/cliente/{id}', [ClienteController::class, 'update']); 
 });
 
 // Perfil usuer

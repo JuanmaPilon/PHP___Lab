@@ -25,10 +25,13 @@
                         </li>
                         @if(Auth::user()->admin)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/admin/create') }}">Crear Usuario</a>
+                                <a class="nav-link" href="{{ url('/admin/create') }}">Crear Clientes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/admin/anuncio') }}">Crear Anuncio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/admin/listaUsuarios') }}">Gestionar Clientes</a>
                             </li>
                         @endif
                         <li class="nav-item">

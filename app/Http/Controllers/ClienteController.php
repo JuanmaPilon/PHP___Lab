@@ -49,7 +49,36 @@ class ClienteController extends Controller
         // Eliminar el usuario asociado (se eliminará automáticamente el cliente)
         $cliente->usuario->delete();
 
-        return response()->json(['message' => 'Cliente eliminado exitosamente'], 200);
+        return redirect()->back()->with('success', 'Cliente borrado exitosamente');
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validar la solicitud
+        $request->validate([
+            'nombreUsuario' => 'required|string',
+            'telefono' => 'nullable|string',
+            'email' => 'required|string|email',
+            'nombreNegocio' => 'required|string',
+            'descripcion' => 'nullable|string',
+        ]);
+
+        // Buscar el cliente
+        $cliente = Cliente::findOrFail($id);
+        $usuario = Usuario::findOrFail($cliente->usuario_id);
+
+        // Actualizar el usuario
+        $usuario->nombreUsuario = $request->input('nombreUsuario');
+        $usuario->telefono = $request->input('telefono');
+        $usuario->email = $request->input('email');
+        $usuario->save();
+
+        // Actualizar el cliente
+        $cliente->nombreNegocio = $request->input('nombreNegocio');
+        $cliente->descripcion = $request->input('descripcion');
+        $cliente->save();
+
+        return redirect()->back()->with('success', 'Cliente actualizado exitosamente');
     }
 
     // Obtener datos de un cliente por ID de cliente
@@ -70,5 +99,11 @@ class ClienteController extends Controller
         $clientes = Cliente::with('usuario')->get();
         return response()->json($clientes);
     }
+    public function showUsers()
+    {
+        $clientes = Cliente::with('usuario')->get();
+        return view('listaUsuarios', compact('clientes'));
+    }
+
 }
 
