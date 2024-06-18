@@ -63,19 +63,19 @@
     </nav>
 
     <div class="container mt-5">
-        <h1 class="text-center">Comercios y Servicios</h1>
+        <h1 class="text-center">Clientes Registrados</h1>
 
         <!-- Mostrar usuarios -->
         <div class="mt-5">
-            <h2 class="text-center">Clientes Registrados</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre de Negocio</th>
                         <th>Descripcion</th>
-                        <th>Correo Electrónico</th>
+                        <th>Nombre Usuario</th>
                         <th>Teléfono</th>
+                        <th>Email</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
