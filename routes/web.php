@@ -51,15 +51,21 @@ Route::post('/email/resend', function (Request $request) {
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
+//datos clientes
+Route::get('/cliente/{id}', [ClienteController::class, 'show']);
+Route::get('/clientes', [ClienteController::class, 'getClientes']);
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
     Route::post('/admin/create', [ClienteController::class, 'store']);
     Route::get('/admin/anuncio', [AnuncioController::class, 'showCreateAnuncioForm'])->name('anuncio.create');
     Route::post('/admin/anuncio', [AnuncioController::class, 'store']);
     Route::get('/admin/anuncios', [AnuncioController::class, 'index'])->name('anuncio.index');
-    Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']);
+    Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']);  
 });
 
 // Perfil usuer
 Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
+
 

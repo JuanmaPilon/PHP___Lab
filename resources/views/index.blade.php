@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-<!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comercios y Servicios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .card-img-top {
-            height: 200px; /* Altura fija para las imágenes */
-            object-fit: cover; /* Escalar y recortar la imagen para que llene el contenedor */
-        }
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -40,7 +33,7 @@
                         @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
-                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                         </li>
@@ -68,8 +61,8 @@
         <div class="row mt-3">
             @foreach($anuncios as $anuncio)
                 <div class="col-md-3 mb-3">
-                    <div class="card h-100" id="anuncio-{{ $anuncio->id }}">
-                        <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top img-fluid" alt="Imagen de Anuncio">
+                    <div class="card" id="anuncio-{{ $anuncio->id }}">
+                        <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top" alt="Imagen de Anuncio">
                         <div class="card-body">
                             <h5 class="card-title">{{ $anuncio->tipo }}</h5>
                             @auth
@@ -81,33 +74,40 @@
                                     </form>
                                 @endif
                             @endauth
+                            <button class="btn btn-primary btn-sm mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $anuncio->id }}" aria-expanded="false" aria-controls="collapse-{{ $anuncio->id }}" onclick="loadClienteData({{ $anuncio->cliente_id }}, {{ $anuncio->id }})">
+                                Ver detalles
+                            </button>
+                            <div class="collapse mt-2" id="collapse-{{ $anuncio->id }}">
+                                <div class="card card-body">
+                                    <p><strong>Nombre Negocio:</strong> <span id="nombreNegocio-{{ $anuncio->id }}"></span></p>
+                                    <p><strong>Descripción:</strong> <span id="descripcion-{{ $anuncio->id }}"></span></p>
+                                    <p><strong>Contacto:</strong> <span id="email-{{ $anuncio->id }}"></span></p>
+                                    <p><strong>Teléfono:</strong> <span id="telefono-{{ $anuncio->id }}"></span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
-</body>
-<script>
-        function deleteAnuncio(id) {
-            if(confirm('¿Estás seguro de que quieres eliminar este anuncio?')) {
-                $.ajax({
-                    url: '/admin/anuncio/' + id,
-                    type: 'POST',
-                    data: {
-                        '_method': 'DELETE',
-                        '_token': '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        $('#anuncio-' + id).remove();
-                        alert(result.message);
-                    },
-                    error: function(xhr) {
-                        alert('Error al eliminar el anuncio.');
-                    }
-                });
-            }
+
+    <script>
+        function loadClienteData(clienteId, anuncioId) {
+            $.ajax({
+                url: '/cliente/' + clienteId,
+                method: 'GET',
+                success: function (data) {
+                    $('#nombreNegocio-' + anuncioId).text(data.nombreNegocio);
+                    $('#descripcion-' + anuncioId).text(data.descripcion);
+                    $('#email-' + anuncioId).text(data.usuario.email);
+                    $('#telefono-' + anuncioId).text(data.usuario.telefono);
+                },
+                error: function (xhr) {
+                    alert('Error al obtener los datos del cliente.');
+                }
+            });
         }
     </script>
-
+</body>
 </html>
