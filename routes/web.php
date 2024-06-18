@@ -60,4 +60,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/anuncio/{id}', [AnuncioController::class, 'destroy']);
 });
 
+// Perfil usuer
+Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
 

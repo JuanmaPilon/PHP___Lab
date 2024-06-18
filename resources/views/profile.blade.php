@@ -1,22 +1,13 @@
 <!DOCTYPE html>
-<html lang="es">
-<!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comercios y Servicios</title>
+    <title>Perfil de Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .card-img-top {
-            height: 200px; /* Altura fija para las imágenes */
-            object-fit: cover; /* Escalar y recortar la imagen para que llene el contenedor */
-        }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Comercios y Servicios</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,52 +53,16 @@
             </div>
         </div>
     </nav>
-
     <div class="container mt-5">
-        <h1 class="text-center">Comercios y Servicios</h1>
-        <div class="row mt-3">
-            @foreach($anuncios as $anuncio)
-                <div class="col-md-3 mb-3">
-                    <div class="card h-100" id="anuncio-{{ $anuncio->id }}">
-                        <img src="{{ asset('images/' . $anuncio->imagen) }}" class="card-img-top img-fluid" alt="Imagen de Anuncio">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $anuncio->tipo }}</h5>
-                            @auth
-                                @if(Auth::user()->admin)
-                                    <form action="{{ url('/admin/anuncio/' . $anuncio->id) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este anuncio?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm float-end">X</button>
-                                    </form>
-                                @endif
-                            @endauth
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <h1 class="text-center">Perfil de Usuario</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Nombre de Usuario: {{ $usuario->nombreUsuario }}</h5>
+                <p class="card-text">Email: {{ $usuario->email }}</p>
+                <p class="card-text">Teléfono: {{ $usuario->telefono }}</p>
+    
+            </div>
         </div>
     </div>
 </body>
-<script>
-        function deleteAnuncio(id) {
-            if(confirm('¿Estás seguro de que quieres eliminar este anuncio?')) {
-                $.ajax({
-                    url: '/admin/anuncio/' + id,
-                    type: 'POST',
-                    data: {
-                        '_method': 'DELETE',
-                        '_token': '{{ csrf_token() }}'
-                    },
-                    success: function(result) {
-                        $('#anuncio-' + id).remove();
-                        alert(result.message);
-                    },
-                    error: function(xhr) {
-                        alert('Error al eliminar el anuncio.');
-                    }
-                });
-            }
-        }
-    </script>
-
 </html>

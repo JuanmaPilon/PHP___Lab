@@ -39,3 +39,6 @@ Route::delete('/clientes/{id}', [ClienteController::class, 'destroy']);
 // Rutas de auth
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+// Perfil usuer
+Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
