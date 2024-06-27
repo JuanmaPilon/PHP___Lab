@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Usuario;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class CreateAdminUser extends Command
 {
@@ -34,7 +35,14 @@ class CreateAdminUser extends Command
             'email' => $email,
             'telefono' => $telefono,
             'password' => Hash::make($password),
+            'email_verified_at' => Carbon::now(),
         ]);
+
+        if ($usuario->email_verified_at) {
+            $this->info('Campo email_verified_at establecido correctamente');
+        } else {
+            $this->error('El campo email_verified_at no se ha establecido');
+        }
 
         Admin::create([
             'usuario_id' => $usuario->id,
