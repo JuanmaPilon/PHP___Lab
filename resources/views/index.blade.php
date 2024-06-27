@@ -1,3 +1,4 @@
+<!-- resources/views/index.blade.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,7 +20,7 @@
                 <ul class="navbar-nav ms-auto">
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile')}}">
+                            <a class="nav-link" href="{{ route('profile') }}">
                                 {{ Auth::user()->nombreUsuario }}
                             </a>
                         </li>
@@ -49,9 +50,6 @@
                         </li>
                     @endauth
                     <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
-                        </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('/horoscopo') }}">Horóscopo</a>
                     </li>
                     <li class="nav-item">
@@ -78,6 +76,10 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm float-end">X</button>
                                     </form>
+                                    <div class="form-check form-switch mt-2">
+                                        <input class="form-check-input" type="checkbox" id="disponibleSwitch-{{ $anuncio->id }}" {{ $anuncio->disponible ? 'checked' : '' }} onchange="toggleDisponibilidad({{ $anuncio->id }})">
+                                        <label class="form-check-label" for="disponibleSwitch-{{ $anuncio->id }}">Disponible</label>
+                                    </div>
                                 @endif
                             @endauth
                             <button class="btn btn-primary btn-sm mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $anuncio->id }}" aria-expanded="false" aria-controls="collapse-{{ $anuncio->id }}" onclick="loadClienteData({{ $anuncio->cliente_id }}, {{ $anuncio->id }})">
@@ -111,6 +113,22 @@
                 },
                 error: function (xhr) {
                     alert('Error al obtener los datos del cliente.');
+                }
+            });
+        }
+
+        function toggleDisponibilidad(anuncioId) {
+            $.ajax({
+                url: '/admin/anuncio/toggleDisponibilidad/' + anuncioId,
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function (response) {
+                    alert('Disponibilidad del anuncio actualizada');
+                },
+                error: function (xhr) {
+                    alert('Error al actualizar la disponibilidad del anuncio.');
                 }
             });
         }

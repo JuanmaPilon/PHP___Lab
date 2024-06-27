@@ -103,6 +103,11 @@ class ClienteController extends Controller
         $clientes = Cliente::with('usuario')->get();
         return view('listaUsuarios', compact('clientes'));
     }
+    public function buscar($cliente_id)
+    {
+        $cliente = Cliente::findOrFail($cliente_id);
+        return $cliente;
+    }
 
 }
 
