@@ -44,7 +44,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect('/');
 })->middleware(['signed'])->name('verification.verify');
 
-Route::post('/email/resend', function (Request $request) {
+Route::get('/email/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Se ha reenviado el correo de verificación.');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
