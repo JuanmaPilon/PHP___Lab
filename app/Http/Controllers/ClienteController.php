@@ -9,20 +9,18 @@ use Illuminate\Support\Facades\Hash;
 
 class ClienteController extends Controller
 {
-    // Alta de cliente
+
     public function store(Request $request)
     {
-        // Validar la solicitud
         $request->validate([
             'nombreUsuario' => 'required|string',
-            'password' => 'required|string',
+            'password' => 'required|string|confirmed',
             'telefono' => 'nullable|string',
             'email' => 'required|string|email',
             'nombreNegocio' => 'required|string',
             'descripcion' => 'nullable|string',
         ]);
 
-        // Crear un nuevo usuario
         $usuario = Usuario::create([
             'nombreUsuario' => $request->nombreUsuario,
             'password' => Hash::make($request->password),
@@ -30,14 +28,15 @@ class ClienteController extends Controller
             'email' => $request->email,
         ]);
 
-        // Crear un nuevo cliente asociado al usuario
-        $cliente = Cliente::create([
+        $usuario->sendEmailVerificationNotification();
+
+        $usuario = Cliente::create([
             'usuario_id' => $usuario->id,
             'nombreNegocio' => $request->nombreNegocio,
             'descripcion' => $request->descripcion,
         ]);
 
-        return redirect()->back()->with('success', 'Cliente creado exitosamente');
+        return redirect()->back()->with('success', 'Cliente creado exitosamente. Se ha enviado un correo de verificación.');
     }
 
     // Baja de cliente
