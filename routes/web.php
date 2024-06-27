@@ -36,13 +36,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Email verify
 Route::get('/email/verify', function () {
-    return view('auth.verify-email');
+    return view('verify'); 
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+})->middleware(['signed'])->name('verification.verify');
 
 Route::post('/email/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
@@ -57,7 +57,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/cliente/{id}', [ClienteController::class, 'show']);
 Route::get('/clientes', [ClienteController::class, 'getClientes']);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/admin/create', [AdminController::class, 'showCreateUserForm'])->name('admin.create');
     Route::post('/admin/create', [ClienteController::class, 'store']);
     Route::get('/admin/anuncio', [AnuncioController::class, 'showCreateAnuncioForm'])->name('anuncio.create');
@@ -70,7 +70,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // Perfil usuario
-Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
+Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile')->middleware(['auth', 'verified']);
 
 // Contacto
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
