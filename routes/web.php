@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnuncioController;
+use App\Http\Controllers\ContactController;
 
 //LandingPage
 Route::get('/', [AnuncioController::class, 'home'])->name('home');
