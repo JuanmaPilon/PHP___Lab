@@ -57,7 +57,7 @@
                         </li>
                     @endauth
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/horoscopo') }}">Horóscopo</a>
+                        <a class="nav-link" href="{{ url('/horoscopo') }}">Horoscopo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/recetas') }}">Recetas</a>
