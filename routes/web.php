@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnuncioController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ContactController;
+
 
 //LandingPage
 Route::get('/', [AnuncioController::class, 'home'])->name('home');
@@ -29,13 +31,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Email verify
 Route::get('/email/verify', function () {
-    return view('verify');
+    return view('verify'); 
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/');
-})->middleware(['signed'])->name('verification.verify');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::get('/email/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
@@ -64,7 +66,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Perfil usuario
-Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile');
+Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile')->middleware(['auth', 'verified']);
 
 // Contacto
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');

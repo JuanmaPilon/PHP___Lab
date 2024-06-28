@@ -20,20 +20,20 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-
+    
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-
+    
             if (!$user->hasVerifiedEmail()) {
                 return redirect()->route('verification.notice');
             }
-
+    
             return redirect()->intended('/');
         }
-
+    
         return back()->withErrors([
             'email' => 'Las credenciales proporcionadas no son correctas.',
         ])->onlyInput('email');
@@ -65,18 +65,18 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:usuario',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
+    
         $user = Usuario::create([
             'nombreUsuario' => $request->nombreUsuario,
             'email' => $request->email,
             'telefono' => $request->telefono,
             'password' => Hash::make($request->password),
         ]);
-
+    
         $user->sendEmailVerificationNotification();
-
+    
         Auth::login($user);
-
+    
         return redirect('/')->with('success', 'Se ha enviado un correo de verificación. Por favor, verifica tu correo electrónico.');
     }
 }

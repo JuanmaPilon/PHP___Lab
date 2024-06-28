@@ -68,6 +68,13 @@
     </nav>
     <div class="container mt-5">
         <h1 class="text-center">Crear Usuario</h1>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <form action="{{ url('/admin/create') }}" method="POST">
             @csrf
             <div class="mb-3">

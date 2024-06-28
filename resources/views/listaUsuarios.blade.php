@@ -22,19 +22,24 @@
                 <ul class="navbar-nav ms-auto">
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profile')}}">
+                            <a class="nav-link" href="{{ route('profile') }}"> Usuario:
                                 {{ Auth::user()->nombreUsuario }}
                             </a>
                         </li>
                         @if(Auth::user()->admin)
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/admin/create') }}">Crear Clientes</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Opciones Admin
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <li><a class="dropdown-item" href="{{ url('/admin/create') }}">Crear Clientes</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/admin/anuncio') }}">Crear Anuncio</a></li>
+                                    <li><a class="dropdown-item" href="{{ url('/admin/listaUsuarios') }}">Gestionar Clientes</a></li>
+                                </ul>
                             </li>
+                        @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/admin/anuncio') }}">Crear Anuncio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/admin/listaUsuarios') }}">Gestionar Clientes</a>
+                                <a class="nav-link" href="{{ url('/contact') }}">Contacto</a>
                             </li>
                         @endif
                         <li class="nav-item">
@@ -50,9 +55,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Login</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/contact') }}">Contacto</a>
+                        </li>
                     @endauth
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/horoscopo') }}">Horóscopo</a>
+                        <a class="nav-link" href="{{ url('/horoscopo') }}">Horoscopo</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/recetas') }}">Recetas</a>
