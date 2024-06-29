@@ -31,7 +31,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Email verify
 Route::get('/email/verify', function () {
-    return view('verify'); 
+    return view('verify');
 })->middleware('auth')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
@@ -71,3 +71,8 @@ Route::get('/profile', [UsuarioController::class, 'profile'])->name('profile')->
 // Contacto
 Route::get('/contact', [ContactController::class, 'showForm'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'sendMail'])->name('contact.send');
+
+Route::get('/recuperar', function () {
+    return view('recuperar');
+})->name('recuperar');
+Route::post('/recuperar', [UsuarioController::class, 'recuperarContrasenia'])->name('password.update');

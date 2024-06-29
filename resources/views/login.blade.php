@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">Comercios y Servicios</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
         <h1 class="text-center">Iniciar Sesión</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="" method="POST">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
@@ -91,6 +91,7 @@
                         </div>
                     @endif
                     <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    <a href="{{ route('recuperar') }}" class="btn btn-primary ms-2">Recuperar Contraseña</a>
                 </form>
             </div>
         </div>

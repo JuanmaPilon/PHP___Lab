@@ -6,11 +6,12 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class UsuarioController extends Controller
 {
     //
- 
+
     public function list()
     {
         $usuarios = Usuario::all();
@@ -116,12 +117,12 @@ class UsuarioController extends Controller
                 ];
                 return response()->json($data, 400);
             }
-            
+
                 $usuario->nombreUsuario = $request->nombreUsuario;
                 $usuario->password = $request->password;
                 $usuario->telefono = $request->telefono;
                 $usuario->email = $request->email;
-            
+
             $usuario->save();
             $data = [
                 'message'=> 'Usuario actualizado',
@@ -137,6 +138,42 @@ class UsuarioController extends Controller
         return view('profile', compact('usuario'));
     }
 
+    public function recuperarContrasenia(Request  $request) {
+        $usuario = Usuario::where('email', $request->email)->first();
+
+        if (!$usuario) {
+            $data = [
+                'message' => 'Usuario no encontrado',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $plainPassword = $request->password;
+
+
+        $usuario->password = $request->password;
+        $usuario->save();
+
+
+        $data = [
+            'email' => $usuario->email,
+            'nombre' => $usuario->nombreUsuario,
+            'contrasenia' => $plainPassword // Usar 'contrasenia' en lugar de 'password'
+        ];
+
+        Mail::send('emails.recuperarContrasenia', $data, function ($message) use ($data) {
+            $message->to($data['email'])
+                    ->subject('Recuperación de contraseña')
+                    ->from('revista@tallerphp.uy', 'Comercios y Servicios');
+        });
+
+        $response = [
+            'message' => 'Nueva contraseña enviada',
+            'status' => 200
+        ];
+        return redirect()->route('home')->with('success', 'Contraseña restablecida correctamente');
+    }
 }
 
 
