@@ -69,12 +69,22 @@
     <div class="container mt-5">
         <h1 class="text-center">Perfil de Usuario</h1>
         <div class="card">
-            <div class="card-body">
+        @if (isset($admin))
+        <div class="card-body">
                 <h5 class="card-title">Nombre de Usuario: {{ $usuario->nombreUsuario }}</h5>
+                <p class="card-text">Telefono: {{ $usuario->telefono }}</p>
                 <p class="card-text">Email: {{ $usuario->email }}</p>
-                <p class="card-text">Teléfono: {{ $usuario->telefono }}</p>
-    
-            </div>
+        </div>
+        @endif
+        @if (isset($cliente))
+        <div class="card-body">
+                <h5 class="card-title">Nombre de Usuario: {{ $usuario->nombreUsuario }}</h5>
+                <p class="card-text">Telefono: {{ $usuario->telefono }}</p>
+                <p class="card-text">Email: {{ $usuario->email }}</p>
+                <p class="card-text">Negocio: {{ $cliente->nombreNegocio }}</p>
+                <p class="card-text">Descripcion: {{ $cliente->descripcion }}</p>
+        </div>
+        @endif
         </div>
     </div>
 </body>
