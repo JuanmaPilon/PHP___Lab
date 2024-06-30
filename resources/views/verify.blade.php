@@ -19,8 +19,12 @@
     @endif
     <p class="text-center">
         Hemos enviado un correo electrónico a tu dirección con un enlace de verificación.
-        Si no has recibido el correo, <a href="{{ route('verification.resend') }}">haz clic aquí para reenviar el correo</a>.
+        Si no has recibido el correo:
     </p>
+    <form action="{{ route('verification.resend') }}" method="POST" class="text-center">
+        @csrf
+        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">haz clic aquí para reenviar el correo</button>.
+    </form>
 </div>
 </body>
 </html>

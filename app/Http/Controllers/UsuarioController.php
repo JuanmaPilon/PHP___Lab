@@ -28,10 +28,10 @@ class UsuarioController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombreUsuario' => 'required',
-            'password' => 'required',
-            'telefono' => 'required',
-            'email' => 'required|email'
+            'nombreUsuario' => 'required|string|unique:usuarios',
+            'nombreNegocio' => 'required|string',
+            'telefono' => 'required|string',
+            'email' => 'required|email|unique:usuarios',
         ]);
 
         if ($validator->fails()) {

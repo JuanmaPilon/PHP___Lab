@@ -11,33 +11,36 @@ class ClienteController extends Controller
 {
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nombreUsuario' => 'required|string',
-            'password' => 'required|string|confirmed',
-            'telefono' => 'nullable|string',
-            'email' => 'required|string|email',
-            'nombreNegocio' => 'required|string',
-            'descripcion' => 'nullable|string',
-        ]);
+{
+    $request->validate([
+        'nombreUsuario' => 'required|string|unique:usuario',
+        'password' => 'required|string|confirmed',
+        'telefono' => 'nullable|string',
+        'email' => 'required|string|email|unique:usuario',
+        'nombreNegocio' => 'required|string',
+        'descripcion' => 'nullable|string',
+    ]);
 
-        $usuario = Usuario::create([
-            'nombreUsuario' => $request->nombreUsuario,
-            'password' => Hash::make($request->password),
-            'telefono' => $request->telefono,
-            'email' => $request->email,
-        ]);
+    // Crear el usuario
+    $usuario = Usuario::create([
+        'nombreUsuario' => $request->nombreUsuario,
+        'password' => Hash::make($request->password),
+        'telefono' => $request->telefono,
+        'email' => $request->email,
+    ]);
 
-        $usuario->sendEmailVerificationNotification();
+    // Enviar notificación de verificación de email
+    $usuario->sendEmailVerificationNotification();
 
-        $usuario = Cliente::create([
-            'usuario_id' => $usuario->id,
-            'nombreNegocio' => $request->nombreNegocio,
-            'descripcion' => $request->descripcion,
-        ]);
+    // Crear el cliente asociado al usuario
+    Cliente::create([
+        'usuario_id' => $usuario->id,
+        'nombreNegocio' => $request->nombreNegocio,
+        'descripcion' => $request->descripcion,
+    ]);
 
-        return redirect()->back()->with('success', 'Cliente creado exitosamente. Se ha enviado un correo de verificación.');
-    }
+    return redirect()->back()->with('success', 'Usuario creado correctamente');
+}
 
     // Baja de cliente
     public function destroy($id)
