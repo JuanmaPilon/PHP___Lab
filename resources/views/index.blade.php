@@ -69,6 +69,19 @@
 
     <div class="container mt-5">
         <h1 class="text-center">Comercios y Servicios</h1>
+
+        <!-- Formulario de búsqueda -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <form action="{{ route('anuncios.search') }}" method="GET">
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Buscar anuncios..." value="{{ request()->input('query') }}">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="row mt-3">
             @foreach($anuncios as $anuncio)
                 <div class="col-md-3 mb-3">

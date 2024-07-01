@@ -28,26 +28,51 @@ class AnuncioController extends Controller
         return redirect()->route('anuncio.create')->with('success', 'Anuncio creado exitosamente');
     }
 
-    public function index() //todos los anuncios para el admin
+    public function index(Request $request)
     {
-        $anuncios = Anuncio::all();
+        $query = $request->input('query');
+        if ($query) {
+            $anuncios = Anuncio::where('tipo', 'LIKE', "%{$query}%")->get();
+        } else {
+            $anuncios = Anuncio::all();
+        }
+
         return view('index', compact('anuncios'));
     }
 
-    public function anunciosDisponibles() // todos los anuncios DISPONIBLES para los visitantes
+    public function anunciosDisponibles(Request $request)
     {
-        $anuncios = Anuncio::where('disponible', true)->get();
+        $query = $request->input('query');
+        if ($query) {
+            $anuncios = Anuncio::where('disponible', true)
+                               ->where('tipo', 'LIKE', "%{$query}%")
+                               ->get();
+        } else {
+            $anuncios = Anuncio::where('disponible', true)->get();
+        }
+
         return view('index', compact('anuncios'));
     }
 
-    public function anunciosDisponiblesPorCliente($cliente_id)
+    public function anunciosDisponiblesPorCliente(Request $request, $cliente_id)
     {
         $cliente = \App\Models\Cliente::findOrFail($cliente_id);
-        $idabuscar = $cliente->id;      // o es id o es usuario_id
-        $anuncios = Anuncio::where('cliente_id', $idabuscar)->where('disponible', true)->get();
-        return view('index', compact('anuncios'));
-    }
+        $idabuscar = $cliente->id; // o es id o es usuario_id
 
+        $query = $request->input('query');
+        if ($query) {
+            $anuncios = Anuncio::where('cliente_id', $idabuscar)
+                               ->where('disponible', true)
+                               ->where('tipo', 'LIKE', "%{$query}%")
+                               ->get();
+        } else {
+            $anuncios = Anuncio::where('cliente_id', $idabuscar)
+                               ->where('disponible', true)
+                               ->get();
+        }
+
+        return view('index', compact('anuncios', 'cliente_id'));
+    }
 
     public function showCreateAnuncioForm()
     {
@@ -73,18 +98,19 @@ class AnuncioController extends Controller
         return response()->json(['success' => true, 'message' => 'Estado de disponibilidad actualizado exitosamente']);
     }
 
-    public function home()
+    public function home(Request $request)
 {
     if (Auth::check()) {
         if (Auth::user()->admin) {
-            return $this->index();
+            return $this->index($request); // Pasa el objeto Request a la función index
         } else {
             $cliente_id = Auth::user()->cliente->id;
-            return $this->anunciosDisponiblesPorCliente($cliente_id);
+            return $this->anunciosDisponiblesPorCliente($request, $cliente_id);
         }
     } else {
-        return $this->anunciosDisponibles();
+        return $this->anunciosDisponibles($request); // Pasa el objeto Request a la función anunciosDisponibles
     }
 }
-
 }
+
+
