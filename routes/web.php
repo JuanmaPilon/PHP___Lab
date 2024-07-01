@@ -14,7 +14,7 @@ use App\Http\Controllers\ContactController;
 
 //LandingPage
 Route::get('/', [AnuncioController::class, 'home'])->name('home');
-Route::get('/anuncios/search', [AnuncioController::class, 'index'])->name('anuncios.search');
+// Route::get('/anuncios/search', [AnuncioController::class, 'index'])->name('anuncios.search');
 
 //Recetas
 Route::get('/recetas', function(){
